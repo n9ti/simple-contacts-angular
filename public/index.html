@@ -3,14 +3,68 @@
 <head>
   <script src="//code.jquery.com/jquery.min.js"></script>
   <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.8.0/loading-bar.min.css" rel="stylesheet" type="text/css" />
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.13/angular-ui-router.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.8.0/loading-bar.min.js"></script>
   <script src="app.js"></script>
+  <link href="app.css" rel="stylesheet" type="text/css" />
   <meta charset="utf-8">
-  <title>JS Bin</title>
+  <title>Simple Contacts</title>
 </head>
-<body ng-controller="AppController as scope">
-  {{scope.name}}
+<body ng-controller="AppController as appCtrl">
+
+	<div class="container">
+	  <div class="col-md-4 hidden-print">
+	  	<button ng-click="appCtrl.contact = {}; appCtrl.mode = 'edit'" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> New</button>
+	  	<div ng-repeat="contact in appCtrl.contacts" ng-click="appCtrl.openContact(contact)" ng-class="{'contact-list-item-active': contact.objectId === appCtrl.contact.objectId}" class="contact-list-item">
+	  		<h1>{{contact.name}}</h1>
+	  	</div>
+	  </div>
+		
+		<div ng-if="appCtrl.contact" class="col-md-8 contact-box">
+			<form ng-if="appCtrl.mode === 'edit'" ng-submit="appCtrl.submit(appCtrl.contact)" class="form-group col-xs-6">
+		  	<div class="form-group">
+			  	<label>Name</label>
+			  	<input type="text" ng-model="appCtrl.contact.name" class="form-control">
+			  </div>
+			  <div class="form-group">
+			  	<label>Tel</label>
+		  		<input type="text" ng-model="appCtrl.contact.tel" class="form-control">
+		  	</div>
+		  	<div class="form-group">
+			  	<label>Email</label>
+		  		<input type="text" ng-model="appCtrl.contact.email" class="form-control">
+				</div>
+				<div class="form-group">
+			  	<label>Facebook ID/Username</label>
+		  		<input type="text" ng-model="appCtrl.contact.fb" class="form-control">
+				</div>
+				<input ng-if="!appCtrl.contact.objectId" type="submit" value="Add" class="btn btn-default">
+				<input ng-if="appCtrl.contact.objectId" type="submit" value="Save" class="btn btn-default">
+		  </form>
+		  <div ng-if="appCtrl.mode === 'view'">
+		  	<div class="hidden-print">
+		  		<button ng-click="appCtrl.mode = 'edit'" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span></button>
+			  	<button ng-click="appCtrl.print()" class="btn btn-default"><span class="glyphicon glyphicon-print"></span></button>
+			  	<button ng-click="appCtrl.deleteContact(appCtrl.contact.objectId)" class="btn btn-default"><span class="glyphicon glyphicon-trash"></span></button>
+			  	<hr>
+		  	</div>
+		  	<img ng-src="https://avatars.io/email/{{appCtrl.contact.email}}" alt="" width="60px" height="60px">
+		  	<h1>{{appCtrl.contact.name}}</h1>
+		  	<a href="tel:{{appCtrl.contact.tel}}">
+		  		<h3 ng-if="appCtrl.contact.tel"> <span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> {{appCtrl.contact.tel}}</h3>
+		  	</a>
+		  	<a href="mailto:{{appCtrl.contact.email}}">
+		  		<h3 ng-if="appCtrl.contact.email"> <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> {{appCtrl.contact.email}}</h3>
+		  	</a>
+		  	<a href="http://www.facebook.com/{{appCtrl.contact.fb}}" target="_blank">
+		  		<h3 ng-if="appCtrl.contact.fb"> <span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{appCtrl.contact.fb}}</h3>
+		  	</a>
+		  </div>
+		</div>
+		  
+	</div>
 </body>
 </html>

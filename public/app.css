@@ -1,0 +1,15 @@
+body {
+	padding: 20px;
+}
+.contact-list-item {
+	border-bottom: 1px solid #eee;
+	cursor: pointer; 
+}
+.contact-list-item-active {
+	color: #4B98D5;
+}
+.contact-box {
+	margin-top: 55px;
+	box-shadow: 0px 1px 5px #999;
+	padding: 30px;
+}
