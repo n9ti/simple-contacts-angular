@@ -1,0 +1,10 @@
+{
+  "applications": {
+    "_default": {
+      "link": "basic-crud"
+    },
+    "basic-crud": {
+      "applicationId": "sUcPCYAUl3M0JZTQrIMKVfGEdBAgeICkgz11uOCq"
+    }
+  }
+}
