@@ -1,3 +1,4 @@
+/*global angular*/
 var app = angular.module('app', ['angular-loading-bar'])
 
 app.controller('AppController', function (Contacts) {
